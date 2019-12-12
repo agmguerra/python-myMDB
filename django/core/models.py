@@ -18,6 +18,10 @@ class Movie(models.Model):
 	runtime = models.PositiveIntegerField()
 	website = models.URLField(blank=True)
 
+	class Meta:
+		ordering = ('-year', 'title')
+			
+
 	def __str__(self):
-		return '{} ({})'.format(self.title, self,year)
+		return '{} ({})'.format(self.title, self.year)
 
