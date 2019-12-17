@@ -14,7 +14,7 @@ class MovieListPaginationTestCase(TestCase):
     def setUp(self):
         for n in range(15):
             Movie.objects.create(
-                title='Title { }'.format(n),
+                title='Title {}'.format(n),
                 year=1990 + n,
                 runtime=100,
             )
