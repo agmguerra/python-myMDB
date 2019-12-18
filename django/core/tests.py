@@ -7,7 +7,7 @@ from core.views import MovieList
 class MovieListPaginationTestCase(TestCase):
     ACTIVE_PAGINATION_HTML = """
     <li class="page-item active">
-        <a href="{ }?page={ }" class="page-link">{ }</a>
+        <a href="{}?page={}" class="page-link">{}</a>
     </li>
     """
 

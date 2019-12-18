@@ -4,6 +4,7 @@ from core.models import Movie
 
 
 class MovieList(ListView):
+	paginate_by = 10
 	model = Movie
 
 
