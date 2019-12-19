@@ -11,3 +11,5 @@ class MovieList(ListView):
 class MovieDetail(DetailView):
 	model = Movie
 
+class PersonDetail(DetailView):
+	queryset = Person.objects.all_with_prefetch_movies()

@@ -1,11 +1,21 @@
 from django.db import models
 
 
-class Person(model.Model):
+class PersonManager(models.Manager):
+	def all_with_prefetch_movies(self):
+		qs = self.get_queryset()
+		return qs.prefetch_related(
+			'directed',
+			'writing_credits',
+			'role_set__movie')
+
+class Person(models.Model):
 	first_name = models.CharField(max_length=140)
 	last_name = models.CharField(max_length=140)
-	born = mode.DateField()
+	born = models.DateField()
 	died = models.DateField(null=True, blank=True)
+
+	objects = PersonManager()
 
 	class Meta:
 		ordering = ('last_name', 'first_name')
@@ -56,15 +66,22 @@ class Movie(models.Model):
 		related_name='acting_credits',
 		blank=True)
 
-
 	class Meta:
 		ordering = ('-year', 'title')
 			
-
 	def __str__(self):
 		return '{} ({})'.format(self.title, self.year)
+
 
 class Role(models.Model):
 	movie = models.ForeignKey(Movie, on_delete=models.DO_NOTHING)
 	person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
 	name = models.CharField(max_length=140)
+
+	def __str__(self):
+		return "{} {} {}".format(self.movie_id, self.person_id, self.name)
+
+	class Meta:
+		unique_together = ('movie', 'person', 'name')
+
+
